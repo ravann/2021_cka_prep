@@ -1,4 +1,5 @@
 id_rsa
 id_rsa.pub
+00_env_gen.sh
 00_env_sensitive.sh
 worker_ips.txt
