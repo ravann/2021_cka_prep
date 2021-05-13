@@ -10,7 +10,7 @@ chmod 755 /tmp/setup_*
 
 /tmp/setup_docker.sh | tee /tmp/setup_docker.log
 /tmp/setup_kube.sh | tee /tmp/setup_kube.log
-/tmp/setup_join.sh | tee /tmp/setup_join.log
+sudo /tmp/setup_join.sh | tee /tmp/setup_join.log
 
 EOF
 

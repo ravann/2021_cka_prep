@@ -1,0 +1,17 @@
+Imperartive Commands (44) - its better now
+
+Practice Test - Multiple Schedulers ( todo )
+-> Follow the kubernetes documentation and this works
+
+ConfigMap & Secrets (102, 106)
+
+
+ETCD - backup and restore
+-> restore is a challenge
+
+TLS
+
+Services
+
+
+Network policies

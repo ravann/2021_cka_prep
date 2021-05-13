@@ -59,12 +59,25 @@ kubectl api-resources
 - search and replace a word
 - replcae a line with another line
 - replace a word with another word
-- Move to end of line
-- move to start of line
-- move to end of file
-- move to start of file
-- copy and paste
-- delete few lines
+- Move to end of line : $
+- move to start of line :
+- move to end of file :
+- move to start of file :
+- copy and paste : yy to copy; p to paste
+- delete few lines : x dd ( x is the number of lines to delete)
+
+### Using tmux
+
+```sh
+tmux # Launches tmux interface
+tmux split-window -h # splits the window horizontally - I use this as  my monitor is wide
+# This will bring focus to the right side pane
+alias sp="tmux select-pane -t 0"
+sp
+# This will bring focus to left side pane
+alias sp="tmux select-pane -t 1"
+# sp command can be used to switch between panes
+```
 
 ### Imperative commands
 
