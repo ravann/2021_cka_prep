@@ -62,6 +62,11 @@ do
 done
 
 rm -f $worker_ips_file
+# Exit if we dont want worker nodes
+if [ $WORKER_NODES -eq 0 ]
+then
+    exit 0
+fi
 for i in `seq $WORKER_NODES`
 do
 worker_name=${az_vm_name_worker_prefix}${i}
