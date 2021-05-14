@@ -13,5 +13,5 @@ sudo cp -p /etc/kubernetes/admin.conf /root/.kube/config
 ### Setup config for non-root user
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+sudo chown -R $(id -u):$(id -g) $HOME/.kube
 
