@@ -26,9 +26,9 @@ az sshkey create --location southeastasia \
 az network vnet create \
     -g $azure_resource_group \
     -n $az_vnet_name \
-    --address-prefix 10.0.0.0/16 \
+    --address-prefix 196.0.0.0/16 \
     --subnet-name $az_subnet_name \
-    --subnet-prefix 10.0.0.0/24
+    --subnet-prefix 196.0.0.0/24
 
 ### Create Master Node
 
@@ -60,6 +60,8 @@ for i in `env | grep -i azure `
 do
     echo $i >> 00_env_gen.sh
 done
+
+echo ssh -i files_for_remote/id_rsa $az_linux_admin_user@$azure_master_ip >> 101_ssh.sh
 
 rm -f $worker_ips_file
 # Exit if we dont want worker nodes
