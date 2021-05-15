@@ -1,0 +1,7 @@
+alias k=kubectl
+alias ka="kubectl apply -f"
+alias kc="kubectl create"
+alias kdel="kubectl delete"
+alias kdes="kubectl describe"
+alias kg="kubectl get"
+alias kr="kubectl run"
