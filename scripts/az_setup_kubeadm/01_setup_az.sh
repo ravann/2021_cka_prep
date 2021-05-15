@@ -1,7 +1,7 @@
 set -x 
 . 00_env.sh
 
-uid=`uuidgen`
+uid=`uuidgen | tr '[:upper:]' '[:lower:]'`
 
 #  az account list-locations --output table | grep -i asia
 export azure_resource_group=$uid
@@ -49,10 +49,16 @@ az vm create \
     --vnet-name $az_vnet_name \
     --subnet $az_subnet_name \
     --nsg-rule SSH \
+    --public-ip-address-dns-name mas-$azure_resource_group \
     --eviction-policy $az_vm_eviction_policy
 
 # Get the public IP of master
 export azure_master_ip=`az vm show -d -g $azure_resource_group -n $az_vm_name_master --query publicIps -o tsv`
+
+# Save SSH command # we need fqdn as the public ip potentially changes every restart
+export azure_master_ip_id=`az vm list-ip-addresses -g $azure_resource_group -n $az_vm_name_master --query "[].virtualMachine.network.publicIpAddresses[0].id" -o tsv`
+export azure_master_fqdn=`az network public-ip show --ids $azure_master_ip_id --query "dnsSettings.fqdn" -o tsv`
+echo ssh -i files_for_remote/id_rsa $az_linux_admin_user@$azure_master_fqdn > 101_ssh.sh
 
 # Save the environment variables
 rm -f 00_env_gen.sh
@@ -60,8 +66,6 @@ for i in `env | grep -i azure `
 do
     echo $i >> 00_env_gen.sh
 done
-
-echo ssh -i files_for_remote/id_rsa $az_linux_admin_user@$azure_master_ip >> 101_ssh.sh
 
 rm -f $worker_ips_file
 # Exit if we dont want worker nodes
