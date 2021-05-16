@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: calculus
+  name: calculus
+spec:
+  containers:
+  - image: busybox
+    name: calculus
+    command: ["sh", "-c"]
+    args:
+    - i=0;
+      while true;
+      do
+        a=$(( i*i+i ));
+        echo $a;
+        i=$(( i+ 1 ));
+      done
+    resources:
+      limits:
+        cpu: "1"
+        memory: "500Mi"
+---
+## Create a new replicaset with the same selector as the pod
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  creationTimestamp: null
+  labels:
+    app: calculus
+  name: calculus
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: calculus
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: calculus
+    spec:
+      containers:
+      - image: busybox
+        name: busybox
+        resources: {}
+        command: ["sh", "-c"]
+        args:
+        - i=0;
+          while true;
+          do
+            a=$(( i*i+i ));
+            echo $a;
+            i=$(( i+ 1 ));
+          done
+        resources:
+          limits:
+            cpu: "1"
+            memory: "500Mi"
