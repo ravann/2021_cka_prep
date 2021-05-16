@@ -1,0 +1,127 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: httpd05
+  name: httpd05
+spec:
+  containers:
+    - image: httpd
+      name: httpd05
+      resources: {}
+    - image: busybox
+      name: sidecar
+      command: ["sh"]
+      args: ["-c", "while true; do sleep 60; done"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx05
+  name: nginx05
+spec:
+  containers:
+    - image: nginx
+      name: nginx05
+      resources: {}
+    - image: busybox
+      name: sidecar
+      command: ["sh"]
+      args: ["-c", "while true; do sleep 60; done"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis05
+  name: redis05
+spec:
+  containers:
+    - image: redis
+      name: redis05
+      resources: {}
+    - image: busybox
+      name: sidecar
+      command: ["sh"]
+      args: ["-c", "while true; do sleep 60; done"]
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-policy-redis05
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      run: redis05
+  policyTypes:
+  - Ingress
+  - Egress # Dont define any egress policies => deny all egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          run: nginx05
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-policy-nginx05
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      run: nginx05
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          run: httpd05
+    ports:
+    - protocol: TCP
+      port: 80
+  egress:
+  - to:
+    - podSelector: 
+        matchLabels: 
+          run: redis05
+    ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-policy-httpd05
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      run: httpd05
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - podSelector: 
+        matchLabels: 
+          run: nginx05
+    ports:
+    - protocol: TCP
+      port: 80

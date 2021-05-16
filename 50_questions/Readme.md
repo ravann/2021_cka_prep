@@ -483,3 +483,184 @@ spec:
   hostPath:
     path: "/tmp/deployment"
 ```
+
+36. Create a Persistent Volume persistent-data which uses a storage class name persistent and is of type hostPath which stores the data on /tmp/persistent on worker nodes. The persistent volume must have a capacity of 2 GB.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: persistent-data
+spec:
+  storageClassName: persistent
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/tmp/persistent"
+```
+
+37. Create a Persistent Volume my-personal-data which uses a storage class name persistent and is of type hostPath which stores the data on /tmp/pii on worker nodes. The persistent volume must have a capacity of 2 GB. Since this will store personal data, make sure you can identify the persistent volume using the labels security: high, type: pii, audit: true.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-personal-data
+  labels:
+    audit: "true"
+    security: high
+    type: pii
+spec:
+  storageClassName: persistent
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/tmp/pii"
+```
+
+38. Create a Persistent Volume Claim to bind to persistent volume which uses storage class persistent and requests 2 GB capacity.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-persistent
+spec:
+  storageClassName: persistent
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+```
+
+39. Create a Persistent Volume Claim to bind to a PV which ensures that the personal and private data is secure. Ensure that this PVC will bind to a PV of type pii.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-personal-data-claim
+spec:
+  storageClassName: persistent
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+```
+
+Note: The first pvc bound to the first created pv. Not sure if its the design or accident.
+
+40. Create a PVC such that it will bind to a PV that is qualified for middleware applications.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deploy-history-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+```
+
+41. Create a deployment deploy02 with image busybox, mount one of the PVC from above such that it will store logs in the /tmp/deployment directory. The containers of the deployment must:
+
+- a] Create a file in /tmp/deployment with the same name as the pod name with .txt extension.
+- b] Run the command i=0; while true; do; echo "$i $(date)" >> /tmp/deployment/<podname>.txt && sleep 60 ; done to the log file.
+  Hint: You can use init-containers, environment variables to achieve this.
+- c] Ensure there are 5 replicas of the deployment.
+- d] Ensure you can see the log files created and populated with data in /tmp/deployment directory on the scheduled worker nodes.
+
+Note: this question is 2 parts:
+
+- Get the volume mounted
+- Ensure the pod name is available to code
+  Below yaml incorporates both
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: deploy02
+  name: deploy02
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: deploy02
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: deploy02
+    spec:
+      containers:
+        - image: busybox
+          name: busybox
+          command: ["/bin/sh"]
+          args:
+            [
+              "-c",
+              "i=0; while true; do echo $i $(date) >> /tmp/deployment/${POD_NAME}.txt && sleep 60; i=$((i+1)); done",
+            ]
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          volumeMounts:
+            - name: deployment-volume
+              mountPath: /tmp/deployment
+      volumes:
+        - name: deployment-volume
+          persistentVolumeClaim:
+            claimName: deploy-history-claim
+```
+
+42. CKAD?
+
+Is anti-affinity part of the CKA course?
+
+43. Create 3 pods nginx05, redis05, and httpd05 with images nginx, redis, and httpd respectively. Attach a sidecar debug container of image busybox to each of them. The security team has enforced the application team to limit the communication between unnecessary pods. Ensure that only the following communication is allowed between pods:
+
+- Allow:
+- - nginx05 <--> redis05
+- - nginx05 <--> httpd05
+- Deny:
+- - httpd05 <-/-> redis05
+- - redis05 <-/-> rest of the world
+- - nginx05 <-/-> the rest of the world
+
+Identify a possible information flow in this system. Write the information flow in the format End-User::Pod1::Pod2::Pod3.
+
+### Solution
+
+Flow:
+httpd can communicate with nginx but not with redis
+nginx can communicate with redis
+rest of the world can only communicate with httpd
+
+=> the flow is: End-User::httpd::nginx::redis
+
+To be precise the flow must be:
+
+- rest of the world ->
+- ( ingress at 80 ) **httpd** (egress at port 80) ->
+- **nginx** (egress at port 6379) ->
+- (ingress at port 6379) **redis**
+
+[Full YAML]()
+
+44.
