@@ -276,12 +276,12 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx
-        - command:
+          image: nginx # The image would already expose port 80
+        - name: ubuntu
+          command:
             - sleep
             - "5000"
           image: ubuntu
-          name: ubuntu
           env:
             - name: DB_URL
               valueFrom:
@@ -661,6 +661,86 @@ To be precise the flow must be:
 - **nginx** (egress at port 6379) ->
 - (ingress at port 6379) **redis**
 
-[Full YAML]()
+[Full YAML](https://raw.githubusercontent.com/ravann/2021_cka_prep/main/50_questions/43.yaml)
 
-44.
+44. Create an application stack from this [source link](https://raw.githubusercontent.com/subodh-dharma/ckad/master/resources/network-policy/apps.yaml). Apply the network policy from this [source link](https://raw.githubusercontent.com/subodh-dharma/ckad/master/resources/network-policy/policy.yaml). Identify whether the network policy applied is correct or not. If not, update the desired network policy. If any network policy was updated, write the updated policy in /opt/44_netpol.yaml.
+
+TBC
+
+45. A developer started a pod calculus with image busybox which performs the calculation i=0; while true; do a=$(( i*i+i )); echo $a; i=$(( i+1 )); done. But later realized that this is not a reliable way to start a calculation-intensive pod. The developer decided to use a replicaset instead. But with the current pod running it would ruin all the calculations done so far. Can you help the developer to ensure that a replicaset can be created and the existing pod can become a part of this replicaset without any downtime. Store the manifest file of the replica set in /opt/45_rs.yaml and at the beginning add a comment describing in one line what strategy was implemented to achieve this.
+
+### Solution
+
+This is 2 step
+
+- Create a pod calculus with a label ( can be default too )
+- Create a replica set, change the selector and labels on the pod ( to match the pod above)
+- - When this replica set is created, it will assume the running pod as one pod in the replica set
+
+[Solution YAML](https://raw.githubusercontent.com/ravann/2021_cka_prep/main/50_questions/45.yaml)
+
+46. Create a deployment deploy03 that uses image nginx:v2. The container name must be nginx. Check if the deployment is successful. Now delete the deployment. Get the events associated with the deployment deploy03 and pods created by the deployment and store them in a file located at /opt/answers/46_events.txt
+
+```sh
+kc deploy deploy03 --image=nginx:v2 --replicas=2
+kdel deploy deploy03
+kg events | grep deploy03 > /opt/answers/46_events.txt
+```
+
+47. Create a configmap devconfig that has configuration data as follows:
+
+```yaml
+apiVersion: v1
+data:
+  language: golang:1.15
+  sdk.cfg: |-
+    auth: token
+    path: /etc/sdk/
+    version: v2
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: devconfig
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: devbox
+  name: devbox
+spec:
+  containers:
+    - args:
+        - sleep
+        - "4800"
+      image: busybox
+      name: devbox
+      resources: {}
+      volumeMounts:
+        - name: config
+          mountPath: /var/dev-sdk
+  volumes:
+    - name: config
+      configMap:
+        name: devconfig
+        items:
+          - key: sdk.cfg
+            path: config/sdk.cfg
+          - key: language
+            path: lang/golang/version/value.txt
+```
+
+- language: golang:1.15
+
+Create a pod devbox with image busybox such that it projects the contents in devconfig. Project sdk.cfg on path /var/dev-sdk/config/sdk.cfg and language on path /var/dev-sdk/lang/golang/version/value.txt.
+
+48. Create a pod pod01 with image busybox such that it requests for 100m of cpu and 50Mi of memory and the resources allocated are expandable to a limit of 200m of cpu and 250 Mi of memory. Try to create a pod using imperative command only.
+
+```sh
+kr pod01 --image=busybox --requests="cpu=100m,memory=50Mi" --limits="cpu=200m,memory=250Mi" -- sleep 4800
+```
+
+49. CKAD
+
+50. CKAD
