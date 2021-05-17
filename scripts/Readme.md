@@ -40,6 +40,8 @@ Setup is done by 2 scripts
 ### Installation
 
 - Ensure az login works on the machine you are trying to install
+- Git clone the repository locally
+- - git clone git@github.com:ravann/2021_cka_prep.git
 - copy 00_env_sensitive_template.sh to 00_env_sensitive.sh
 - edit 00_env_sensitive.sh and addin subscription id of the azure
 - review the parameters in the 00_env.sh
