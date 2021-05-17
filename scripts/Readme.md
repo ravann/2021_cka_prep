@@ -5,12 +5,14 @@ The scripts will help setup a new kubernetes cluster on Azure. The cluster will 
 - Azure cli is available
 - az login is already run and is pointing to right account
 
-### Installation
+### Design
 
-Installation is done by 2 scripts
+Setup is done by 2 scripts
 
 - 01_setup_az.sh
 - 02_setup_kube.sh
+  both wrapped by
+- 09_full_setup.sh
 
   Below is how the scripts work:
 
@@ -34,6 +36,14 @@ Installation is done by 2 scripts
 - Copy all files from "files_for_remote" folder to master node
 - Sets up master
 - Sets up worker
+
+### Installation
+
+- Ensure az login works on the machine you are trying to install
+- copy 00_env_sensitive_template.sh to 00_env_sensitive.sh
+- edit 00_env_sensitive.sh and addin subscription id of the azure
+- review the parameters in the 00_env.sh
+- run 09_full_setup.sh
 
 ### Working on the cluster
 
