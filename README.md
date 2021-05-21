@@ -26,23 +26,13 @@ kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o y
 ### Practice with the fixed set of aliases so its easy to work with them in the exam
 
 ```sh
-alias a=alias
-a k="kubectl"
-a ka="kubectl apply -f"
-a kapi="kubectl api-resources"
-a kauth="kubectl auth"
-a kc="kubectl create "
-a kdel="kubectl delete "
-a kdes="kubectl describe "
-a kdr="k drain"
-a ke="kubectl edit"
-a kg="kubectl get "
-a kl="kubectl label"
-a klog="kubectl logs"
-a kr="kubectl run "
-a kt="kubectl taint nodes"
-a ktop="kubectl top"
-a kns="kubectl config set-context $(kubectl config current-context) --namespace  "
+alias k=kubectl
+alias ka="kubectl apply -f"
+alias kc="kubectl create"
+alias kdel="kubectl delete"
+alias kdes="kubectl describe"
+alias kg="kubectl get"
+alias kr="kubectl run"
 ```
 
 ### Aliases for objects
