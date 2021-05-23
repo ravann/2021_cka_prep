@@ -85,3 +85,31 @@ Most common shortcuts that helps speed up are:
 ## Bookmarks I used
 
 
+- https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables
+- https://kubernetes.io/docs/concepts/configuration/secret/#use-case-as-container-environment-variables
+- https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+- https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+- https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+- https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/
+- https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+- https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/
+- https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+- https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+- https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+- https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+- https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/
+- https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/
+- https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+- https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+- https://kubernetes.io/docs/concepts/services-networking/service/
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/#steps-for-the-first-control-plane-node
+- https://kubernetes.io/docs/concepts/services-networking/network-policies/
+- https://kubernetes.io/docs/concepts/services-networking/ingress/
+- https://kubernetes.github.io/ingress-nginx/deploy/
+- https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+- https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+- https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
+
