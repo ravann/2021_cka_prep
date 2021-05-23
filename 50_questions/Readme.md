@@ -11,7 +11,6 @@ alias ka='kubectl apply -f'
 alias kc='kubectl create'
 alias kdel='kubectl delete'
 alias kdes='kubectl describe'
-alias ke='kubectl edit'
 alias kg='kubectl get'
 alias kr='kubectl run'
 ```
