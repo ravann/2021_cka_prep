@@ -11,7 +11,11 @@ https://www.udemy.com/course/certified-kubernetes-administrator-with-practice-te
 
 Use the below aliases during practice
 
-3. Once done with all course content ( except lightning labs and mocktest ), do all practice tests again.  This time: 
+3. Complete the json path course if you haven't
+
+https://kodekloud.com/p/json-path-quiz
+
+4. Once done with all course content ( except lightning labs and mocktest ), do all practice tests again.  This time: 
 
 - mostly using imperative commands
 - use imperative to generate partital YAML if you need enhanced YAML to answer the question
@@ -21,20 +25,15 @@ https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 
 Declarative is to understand the concepts better.  Imperative is to be quick for the exam.
 
-4. Complete the json path course if you haven't
+5. Do the mock tests ( not the lightning labs )
 
-https://kodekloud.com/p/json-path-quiz
+6. Do the lightning labs
 
-
-4. Do the mock tests ( not the lightning labs )
-
-5. Do the lightning labs
-
-6. Repeat 3,4,5, until you are comfortable ( dont worry you are doing for the 3rd or 4th time)
+7. Repeat 4,5,6 until you are comfortable ( dont worry you are doing for the 3rd or 4th time)
 
 Its more expensive emotionally and financially to fail the exam multiple times
 
-7. Try to do the 50 questions.  URL: 
+8. Try to do the 50 questions.  URL: 
 https://dev.to/subodev/50-questions-for-ckad-and-cka-exam-3bjm
 
 Solution available at: 
