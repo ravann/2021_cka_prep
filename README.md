@@ -2,6 +2,8 @@
 
 1. Get the right course: 
 
+There are a number of materials on the internet that will help you prepare for the CKA.  The below course from KodeKloud teaches the concepts and then the actual exam material.  They have a number of practice tests that will help you solidify your understanding.
+
 https://kodekloud.com/p/certified-kubernetes-administrator-with-practice-tests
 
 Its also available in Udemy at:
