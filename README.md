@@ -25,13 +25,13 @@ Declarative is to understand the concepts better.  Imperative is to be quick for
 
 4. Do the mock tests ( not the lightning labs )
 
-5. Do the lightning labs
+6. Do the lightning labs
 
-6. Repeat 3,4,5, until you are comfortable ( dont worry you are doing for the 3rd or 4th time)
+7. Repeat 4,5,6 until you are comfortable ( dont worry you are doing for the 3rd or 4th time)
 
 Its more expensive emotionally and financially to fail the exam multiple times
 
-7. Try to do the 50 questions.  URL: 
+8. Try to do the 50 questions.  URL: 
 https://dev.to/subodev/50-questions-for-ckad-and-cka-exam-3bjm
 
 Solution available at: 
