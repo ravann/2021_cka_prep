@@ -1,0 +1,56 @@
+
+
+Goal:
+Setup a cluster with 1 Master + 1 Worker
+using Kubeadm
+
+
+
+
+
+STEP 1: VPC + Subnet
+
+STEP 2: Create machine ( use password )
+
+
+2 Ubuntu Machines
+Network them
+
+
+
+PART1: SYSTEM COMPONENTS
+
+
+
+Setup Docker
+
+STEP 3: Add docker repo to apt 
+
+STEP 3b: Install docker
+
+STEP 4: Get docker to use systemd
+
+
+Setup Kubernetes Master 
+
+STEP 5: Add Kubernetes repo to apt
+
+STEP 5: Install kubectl, kubeadm, kubelet
+
+PART2: KUBERNETES COMPONENTS
+
+STEP 6: kubeadm init
+
+STEP 7: CNI installation
+
+Setup Kubernetes Worker
+
+STEP 8: Join worker
+
+
+
+CKA12345!@#$%
+
+
+
+kubeadm join 196.0.0.4:6443 --token 5vdfo9.u5cjpmyrd4tqg26w --discovery-token-ca-cert-hash sha256:6c8d83d663549f7e41dca3e680e0c8d7a271504916421521134fc1c347ce68e8

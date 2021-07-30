@@ -10,4 +10,4 @@ sudo cp /tmp/kubernetes.list /etc/apt/sources.list.d/kubernetes.list
 ### Install the packages
 
 sudo apt-get update
-sudo apt-get install -y kubelet=1.20.7-00 kubeadm=1.20.7-00 kubectl=1.20.7-00
+sudo apt-get install -y kubelet=1.21.0-00 kubeadm=1.21.0-00 kubectl=1.21.0-00
